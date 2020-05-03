@@ -1,0 +1,150 @@
+*{
+	box-sizing: border-box;
+}
+body{
+	padding: 0px;
+	margin: 0px;
+	background-color: #f6f6f6;
+}
+header{
+	background-color: #008489;
+	height: 66px;
+}
+header *{
+	color: #fff;
+}
+header .logo{
+	float: left;
+	display: inline-flex;
+	height: inherit;
+	margin-left: 2em;
+	
+}
+header .logo-link{
+	display: inline-flex;
+	text-decoration: none;
+}
+header .logo img{
+	height: 50px;
+	width: 50px;
+	margin-top: 5px;
+}
+header .logo-text{
+	margin: 9px;
+}
+.container{
+	background-color: #f1f1f1;
+	padding: 20px;
+	margin-top: 5%;
+}
+.title{
+	text-align: center;
+	margin-bottom: 50px;
+}
+.row:after{
+	clear: both;
+	content: "";
+}
+.column{
+	float: left;
+	width: 40%;
+}
+.info{
+	display: flex;
+	margin-left: 20px;	
+}
+.brief{
+	margin-top: 50px;
+}
+#select{
+	padding: 10px;
+	width: 100px;
+	border-radius: 5px;
+	margin-right: 50px;
+	margin-top: 0px;
+	border: none;
+	background-color: inherit;
+}
+.method{
+	display: flex;
+	text-align: center;
+	margin-bottom: 10px;
+}
+#credit,#pay{
+		padding-left: 10px;
+}
+#pay{
+	color: darkblue;
+}
+#pal{
+	color: lightblue;
+}
+.credit-card{
+	margin-right: 20px;
+	padding-left: 10px;
+}
+.card-number{
+	margin-bottom: 10px;
+}
+.payment{
+	width: 50%;
+	background-color: #fff;
+	padding: 20px;
+	margin-left: 20px;
+	margin-top: 10px;
+	box-shadow: 2px 2px 2px 4px lightgrey; 
+}
+#cardnumber{
+	width: 100%;
+	position: relative;
+}
+#fa-icon{
+	position: absolute;
+	margin-left: -84px;
+	margin-top: 10px;
+}
+#issueDate{
+	width: 50%;
+}
+#code{
+	width: 49%;
+}
+#btnProceed{
+	width: 100%;
+	padding: 10px;
+	background-color: #ec5252;
+	color: #fff;
+	border-radius: 5px;
+	border: none;
+}
+input{
+	margin-bottom: 10px;
+	padding: 10px;
+	background-color: #f1f1f1;
+	border: 1px solid #f1f1f1;
+	border-radius: 5px;
+}
+@media only screen and (max-width: 758px){
+	body{
+		overflow-x: hidden;
+	}
+
+	.row{
+		display: block;
+	}
+	.column{
+		width: 100%;margin-right: 15px;
+	}
+	.container h2{
+	margin-left: 1%;
+}
+	.payment{
+		width: 100%;
+	}
+	#issueDate{
+	width: 100%;
+}
+	#code{
+	width: 100%;
+}
+        }

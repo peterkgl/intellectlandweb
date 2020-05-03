@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Contact V5</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+	<link rel="stylesheet" type="text/css" href="css/contact/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/contact/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/contact/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="css/contact/main.css">
+	<!--custom css-->	
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/responsive.css">
+	<link rel="shortcut icon" href="favicon.png?v=1.1" type="image/png"> 
+    <link rel="icon" type="image/ico" href="img/logo.png">
+
+</head>
+<body>
+<header>
+	<div class="logo">
+		<a href="#" class="logo-link">
+		<img src="img/logo.png">
+		<h1 class="logo-text">IntellectLand</h1>
+	</a>
+	</div>
+	<i class="fa fa-bars menu-toggle"></i>
+	<ul class="nav">
+		<li><a href="#">About</a></li>
+		<li><a href="contact.php">Contact</a></li>
+		<li><a href="#myModal-signUp" data-toggle="modal">Join Us</a></li>
+		<li><a
+			href="#myModal-signIn" data-toggle="modal">Login</a></li>
+
+	</ul>
+</header>
+
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					Contact Us
+				</span>
+
+				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+					<span class="label-input100">FULL NAME *</span>
+					<input class="input100" type="text" name="name" placeholder="Enter Your Name">
+				</div>
+
+				<div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Enter Your Email (e@a.x)">
+					<span class="label-input100">Email *</span>
+					<input class="input100" type="text" name="email" placeholder="Enter Your Email ">
+				</div>
+
+				<div class="wrap-input100 bg1 rs1-wrap-input100">
+					<span class="label-input100">Phone</span>
+					<input class="input100" type="text" name="phone" placeholder="Enter Number Phone">
+				</div>
+
+				<div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
+					<span class="label-input100">Message</span>
+					<textarea class="input100" name="message" placeholder="Your message here..."></textarea>
+				</div>
+
+				<div class="container-contact100-form-btn">
+					<button class="contact100-form-btn">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="js/script.js"></script>
+
+<!-- Modal HTML for SIGN IN -->
+<div id="myModal-signIn" class="modal fade">
+	<div class="modal-dialog modal-login">
+		<div class="modal-content">
+			<form method="post">
+				<div class="modal-header">
+				<span><img src="img/logo.png"> 
+					<label>IntellectLand - Log In</label>
+				</span>	
+				
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">				
+					<div class="inner-addon-login left-addon">
+    <a href="#"><i class="fa fa-envelope"></i></a>
+    <input type="text" name="email" class="form-control-login" placeholder="Email address">
+</div>
+	<div class="inner-addon-login left-addon">
+    <a href="#"><i class="fa fa-lock"></i></a>
+    <input type="password" name="password" class="form-control-login" placeholder="Password">
+</div>
+<button id="login">Login</button>
+					<div class="forgot">
+						<label>or</label> <a href="home.html">Forgot password</a>
+					</div>
+					<div id="blankSpace"></div>
+					<div class="no-account"><label>Don't have an account? <a href="myModal-signUp"  data-toggle="modal">Sign up</a></label></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div> 
+<!-- Modal HTML for SIGN UP -->
+<div id="myModal-signUp" class="modal fade">
+	<div class="modal-dialog modal-login">
+		<div class="modal-content">
+			<form method="post">
+				<div class="modal-header">
+				<span><img src="img/logo.png"><label>IntellectLand - Join Us</span></label></span>
+
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+<div class="modal-body">
+	<div class="inner-addon-login left-addon">
+    <a href="#"><i class="fa fa-user"></i></a>
+    <input type="text" class="form-control-login" placeholder="Full name">
+</div>				
+	<div class="inner-addon-login left-addon">
+    <a href="#"><i class="fa fa-envelope"></i></a>
+    <input type="text" class="form-control-login" placeholder="Email address">
+</div>
+	<div class="inner-addon-login left-addon">
+    <a href="#"><i class="fa fa-lock"></i></a>
+    <input type="password" class="form-control-login" id="pass" placeholder="Password">
+</div>
+<div class="inner-addon-login left-addon">
+    <a href="#"><i class="fa fa-lock"></i></a>
+    <input type="password" class="form-control-login" id="c-pass" placeholder="Confirm Password">
+</div>
+<div id="blankSpace"></div>
+
+	<div class="check">
+	<input type="checkbox"> I'm in for emails with exciting discounts and personalized recommendations
+	</div>
+	<button id="login">Sign Up</button>
+	<div id="blankSpace"></div>
+	<small>By signing up you agree to our <a href="">terms of use</a> and <a href="">Privacy Policy</a></small>
+	<div id="blankSpace"></div>
+
+	<hr>				
+	<label id="center">Already have an accounts? <a href="#myModal-signIn" data-toggle="modal">Log In</a></label>
+				
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>

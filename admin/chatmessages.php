@@ -1,0 +1,297 @@
+<?php 
+session_start();
+
+// Check if the user is logged in, if yes go to home.php otherwise redirect to index page
+if(session_id() != "sessionuseradmin") {
+    header("location: ../index.php");
+  exit;
+}
+
+// Include config file
+require_once "config.php";
+
+//retrive logged in user
+$loguser_id = $_SESSION["id"];
+
+$_SESSION['userid'] = $loguser_id;
+
+/*
+|--------------------------------------------------------------------------
+| Others
+|--------------------------------------------------------------------------
+*/
+
+$query1 = mysqli_query($link,"SELECT * FROM USERS WHERE id = $loguser_id");
+while($result = mysqli_fetch_array($query1, MYSQLI_ASSOC))
+{
+  $query10 = mysqli_query($link,"SELECT * FROM users_data WHERE id = $loguser_id");
+  while($result10 = mysqli_fetch_array($query10, MYSQLI_ASSOC))
+  {
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IntellectLand </title>
+    <!-- jQuery===modal-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="../js/script.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <!-- font-awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--fadeshow-->
+  <link rel="stylesheet" href="../css/jquery.fadeshow-0.1.1.min.css"/>
+  <!--custom css--> 
+  <link rel="stylesheet" type="text/css" href="../css/chat.css">
+  <link rel="shortcut icon" href="../favicon.png?v=1.1" type="image/png">
+    <link rel="icon" type="image/ico" href="../img/logo.png">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+    <link rel="stylesheet" type="text/css" href="../css/home.css">
+<link href="../css/style.css" rel="stylesheet" id="bootstrap-css">
+<script src="../js/chat.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/responsive.css">
+<style>
+.pt10{
+            padding-right: 10px; 
+        }
+        .footer{
+            height: 120px;
+        }
+        #contact-info{
+            margin-top: 20px;
+        }
+        #nav{
+            display: inline-flex;
+            margin-right: 50px;
+            margin-top: 0px;
+        }
+        #search,.search{
+            width: 270px;
+            margin-left: 0px;
+        }
+        .chat{
+          background-color: inherit;
+          width: 100%;
+        }
+        .messages{
+          margin-top: 10px;
+        }
+        .message-input{
+          font-size: 20px;
+          margin-bottom: -5px;
+        }
+        @media only screen and (max-width: 758px){
+            .footer{
+                height: 195px;
+                padding-left: 10px;
+                padding-top: 10px;
+            }
+            .message-area{
+                margin-top: -70px;
+            }
+            .title{
+                margin: 5px;
+                padding: 0px;
+            }
+            .nav{
+                padding: 0px;
+                margin: 0px;
+            }
+            #footer-nav{
+                margin: 0px;
+                padding: 0px;
+            }
+        }
+</style>
+</head>
+<body>
+    <header>
+  <div class="logo">
+    <a href="home.php" class="logo-link">
+    <img src="../img/logo.png">
+    <h1 class="logo-text">IntellectLand</h1>
+  </a>
+  </div>
+  <i class="fa fa-bars menu-toggle"></i>
+  <ul class="nav">
+    <li><a href="../adminpanel.php">Admin Home</a></li>
+    <li><a href="chatmessages.php">Chats
+
+      <?php
+      $query16 = "SELECT * FROM CHAT WHERE reciever_userid = $loguser_id AND status = 1";  
+      $result16 = mysqli_query($link, $query16);  
+      $rows = mysqli_num_rows($result16);
+      if ($rows > 0) { ?>
+        <span class="badge top"><?php echo $rows; ?></span>
+      <?php } ?>
+
+      <span class="badge top"></span>
+
+    </a></li>
+<li><a href="../logout.php">Log Out </a><i class="entypo-logout right"></i></li>
+</ul>
+</header>
+  
+  <?php if(!empty($_SESSION['userid'])) { ?>  
+    <div class="chat">  
+      <div id="frame">    
+        <div id="sidepanel">
+          <div id="profile">
+          <?php
+          include ('Chat.php');
+          $chat = new Chat();
+          $loggedUser = $chat->getUserDetails($_SESSION['userid']);
+          echo '<div class="wrap">';
+          $currentSession = '';
+          foreach ($loggedUser as $user) {
+            $currentSession = $user['current_session'];
+           $thisid = $user['userid'];
+            $query = "SELECT * FROM tbl_images WHERE id = $thisid";  
+            $result0 = mysqli_query($link, $query);  
+            while($row = mysqli_fetch_array($result0)) {    
+            echo ' <img id="profile-img" src="data:image/jpeg;base64,'.base64_encode($row['name'] ).'" class="online"/>  ';  
+            }    
+           // echo '<img id="profile-img" src="userpics/'.$user['avatar'].'" class="online" alt="" />';
+             $query0 = mysqli_query($link,"SELECT * FROM users WHERE id = $thisid");
+            $user0 = mysqli_fetch_array($query0, MYSQLI_ASSOC);
+            if ($user0['user_level'] == 1) { 
+          echo  '<p>'.$user['username']." "."<font color=yellow>BLOG ADMIN </font>".'</p>';
+              } else {
+
+                echo  '<p>'.$user['username'].'</p>';
+               }
+
+              echo '<div id="expanded">';     
+             
+              echo '</div>';
+          }
+          echo '</div>';
+          ?>
+          </div>
+          <div id="contacts"> 
+          <?php
+          echo '<ul>';
+          $chatUsers = $chat->chatUsers2($_SESSION['userid']);
+          // echo count($chatUsers);
+
+          if (empty($chatUsers)) { $users=0;?>
+            <h4>No Recent Chats, Admin</h4>
+            <a href="viewmembers.php">Find Someone</a>
+          <?php } else {
+           
+          $users=1;
+          $arr = array();
+          foreach ($chatUsers as $key) {
+            if (in_array($key, $arr)) {
+              continue;
+            }
+            //retrieve data of each user
+            $query15 = mysqli_query($link,"SELECT * FROM chat_users WHERE userid = $key");
+            while($user = mysqli_fetch_array($query15, MYSQLI_ASSOC))
+            {
+            $status = 'offline';            
+            if($user['online']) {
+              $status = 'online';
+            }
+            $activeUser = '';
+            if($user['userid'] == $currentSession) {
+              $activeUser = "active";
+            }
+
+
+          echo '<li id="'.$user['userid'].'" class="contact '.$activeUser.'" data-touserid="'.$user['userid'].'" data-tousername="'.$user['username'].'">';
+            echo '<div class="wrap">';
+            echo '<span id="status_'.$user['userid'].'" class="contact-status '.$status.'"></span>';
+            
+             $thisid = $user['userid'];
+            $query = "SELECT * FROM tbl_images WHERE id = $thisid";  
+            $result0 = mysqli_query($link, $query);  
+            while($row = mysqli_fetch_array($result0)) {    
+            echo ' <img src="data:image/jpeg;base64,'.base64_encode($row['name'] ).'" />  ';  
+            }    
+            //echo '<img src="userpics/'.$user['avatar'].'" alt="" />';
+            echo '<div class="meta">';
+            $query0 = mysqli_query($link,"SELECT * FROM users WHERE id = $key");
+            $user0 = mysqli_fetch_array($query0, MYSQLI_ASSOC);
+            if ($user0['user_level'] == 1) { 
+
+                echo '<p class="name">'.$user['username'].'<span id="unread_'.$user['userid'].'" class="unread">'.$chat->getUnreadMessageCount($user['userid'], $_SESSION['userid']).'</span>'."&nbsp;&nbsp;&nbsp;&nbsp;<font color=yellow>BLOG ADMIN </font>".'</p>';
+              } else {
+
+                echo '<p class="name">'.$user['username'].'<span id="unread_'.$user['userid'].'" class="unread">'.$chat->getUnreadMessageCount($user['userid'], $_SESSION['userid']).'</span></p>';
+               }
+
+            echo '<p class="preview"><span id="isTyping_'.$user['userid'].'" class="isTyping"></span></p>';
+            echo '</div>';
+            echo '</div>';
+            echo '</li>'; 
+          }
+          array_push($arr, $key);
+          }
+           # code...
+          }
+          }
+          echo '</ul>';
+          ?>
+          </div>
+          
+        </div>      
+        <div class="content" id="content"> 
+          <div class="contact-profile" id="userSection">  
+          <?php
+          if ($users==0) { ?>
+            <b style="padding-left: 10px;">Click On Contact In Left Hand To Open Chat</b>
+          <?php } else {
+           
+          $userDetails = $chat->getUserDetails($currentSession);
+          foreach ($userDetails as $user) {                   
+            $thisid = $user['userid'];
+            $query = "SELECT * FROM tbl_images WHERE id = $thisid";  
+            $result0 = mysqli_query($link, $query);  
+            while($row = mysqli_fetch_array($result0)) {    
+            echo ' <img src="data:image/jpeg;base64,'.base64_encode($row['name'] ).'"/>  ';  
+            }           
+           // echo '<img src="userpics/'.$user['avatar'].'" alt="" />';
+              echo '<p>'.$user['username'].'</p>';
+          } 
+          }
+          ?>            
+          </div>
+          <div class="messages" id="conversation">    
+          <?php
+          echo $chat->getUserChat($_SESSION['userid'], $currentSession);            
+          ?>
+          </div>
+          <div class="message-input" id="replySection">       
+            <div class="message-input" id="replyContainer">
+              <div class="wrap">
+                 <?php
+          if ($users==0) { ?>
+             <input type="text" disabled class="chatMessage" id="chatMessage<?php echo $currentSession; ?>" placeholder="Write your message..." />
+                <button disabled class="submit chatButton" id="chatButton<?php echo $currentSession; ?>"><i class="fa fa-paper-plane" aria-hidden="true"></i></button> 
+          <?php } else {?>
+           
+           <input type="text" class="chatMessage" id="chatMessage<?php echo $currentSession; ?>" placeholder="Write your message..." />
+                <button class="submit chatButton" id="chatButton<?php echo $currentSession; ?>"><i class="fa fa-paper-plane" aria-hidden="true"></i></button> 
+          <?php } ?>
+               
+              </div>
+            </div>          
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php 
+}
+}
+?> 
+<!-- footer area -->
+    <footer>
+        <span>&copy; 2020 IntellectLand | <i>Alrights reserved</i></span>
+        
+    </footer>
+</body>
+</html>
